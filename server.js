@@ -1,3 +1,4 @@
+const Message = require("./models/Message");
 require("dotenv").config();
 
 const express = require("express");
@@ -17,6 +18,27 @@ mongoose.connect(process.env.MONGO_URI)
 
 app.get("/", (req, res) => {
     res.send("Anonymous Backend Running");
+});
+
+app.post("/message", async (req, res) => {
+
+    try {
+
+        const newMessage = new Message({
+            message: req.body.message
+        });
+
+        await newMessage.save();
+
+        res.send("Message saved successfully");
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.status(500).send("Error saving message");
+    }
+
 });
 
 const PORT = 5000;
