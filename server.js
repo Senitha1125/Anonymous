@@ -10,6 +10,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("./models/User");
 
+const authMiddleware = require("./middleware/authMiddleware");
+
 app.use(express.json());
 app.use(express.static("public"));
 
@@ -52,7 +54,7 @@ app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
 
-app.get("/messages", async (req, res) => {
+app.get("/messages", authMiddleware, async (req, res) =>  {
 
     try {
 
