@@ -6,7 +6,12 @@ const mongoose = require("mongoose");
 
 const app = express();
 
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const User = require("./models/User");
+
 app.use(express.json());
+app.use(express.static("public"));
 
 mongoose.connect(process.env.MONGO_URI)
 .then(() => {
@@ -45,4 +50,64 @@ const PORT = 5000;
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+});
+
+app.get("/messages", async (req, res) => {
+
+    try {
+
+        const messages = await Message.find();
+
+        res.json(messages);
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.status(500).send("Error fetching messages");
+    }
+
+});
+
+app.delete("/message/:id", async (req, res) => {
+
+    try {
+
+        await Message.findByIdAndDelete(req.params.id);
+
+        res.send("Message deleted successfully");
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.status(500).send("Error deleting message");
+    }
+
+});
+
+app.post("/signup", async (req, res) => {
+
+    try {
+
+        const { username, password } = req.body;
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const newUser = new User({
+            username,
+            password: hashedPassword
+        });
+
+        await newUser.save();
+
+        res.send("User created successfully");
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.status(500).send("Signup failed");
+    }
+
 });
