@@ -49,6 +49,7 @@ async function loginUser() {
     const data = await response.json();
 
     localStorage.setItem("token", data.token);
+    localStorage.setItem("isAdmin", data.isAdmin);
 
     alert("Login successful");
 
@@ -104,9 +105,14 @@ const response = await fetch("/messages", {
 
                 <p>${msg.message}</p>
 
-                <button onclick="deleteMessage('${msg._id}')">
-                    Delete
-                </button>
+                ${localStorage.getItem("isAdmin") === "true"
+? `
+<button onclick="deleteMessage('${msg._id}')">
+    Delete
+</button>
+`
+: ""
+}
 
             </div>
         `;
