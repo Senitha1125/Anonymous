@@ -54,7 +54,7 @@ app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
 
-app.get("/messages", authMiddleware, async (req, res) =>  {
+app.get("/messages",  async (req, res) =>  {
 
     try {
 

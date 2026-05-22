@@ -22,6 +22,26 @@ async function signupUser() {
     const data = await response.text();
 
     alert(data);
+if(localStorage.getItem("isAdmin") === "true") {
+
+    document.getElementById("postSection").style.display = "none";
+
+}
+    document.getElementById("landingPage").style.display = "none";
+
+document.getElementById("authModal").style.display = "none";
+
+document.getElementById("mainApp").style.display = "block";
+
+
+
+loadMessages();
+
+}
+
+function openAuthModal() {
+
+    document.getElementById("authModal").style.display = "flex";
 
 }
 
@@ -52,6 +72,18 @@ async function loginUser() {
     localStorage.setItem("isAdmin", data.isAdmin);
 
     alert("Login successful");
+if(localStorage.getItem("isAdmin") === "true") {
+
+    document.getElementById("postSection").style.display = "none";
+
+}
+    document.getElementById("landingPage").style.display = "none";
+
+document.getElementById("authModal").style.display = "none";
+
+document.getElementById("mainApp").style.display = "block";
+
+loadMessages();
 
 }
 
@@ -131,6 +163,14 @@ async function deleteMessage(id) {
         method: "DELETE"
 
     });
+
+    loadMessages();
+}
+function enterApp() {
+
+    document.getElementById("landingPage").style.display = "none";
+
+    document.getElementById("mainApp").style.display = "block";
 
     loadMessages();
 }

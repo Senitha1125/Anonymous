@@ -9,25 +9,83 @@
 
 <body>
 
-    <div class="container">
+    <!-- LANDING PAGE -->
+
+    <div id="landingPage">
+
+    <div class="landing-content">
 
         <h1>Anonymous Thoughts</h1>
 
-        <input type="text" id="username" placeholder="Username">
+        <p>
+            leave a thought for senitha 💌
+        </p>
 
-        <input type="password" id="password" placeholder="Password">
-
-        <button onclick="signupUser()">Signup</button>
-
-        <button onclick="loginUser()">Login</button>
-
-        <textarea id="messageInput" placeholder="Write something anonymous..."></textarea>
-
-        <button onclick="sendMessage()">Send</button>
-
-        <div id="messages"></div>
+        <button onclick="openAuthModal()">
+            Take Me Inside
+        </button>
 
     </div>
+
+</div>
+    <div id="authModal" class="modal">
+
+    <div class="modal-content">
+
+        <h2>Welcome 💌</h2>
+
+        <input
+            type="text"
+            id="username"
+            placeholder="Username"
+        >
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Password"
+        >
+
+        <button onclick="loginUser()">
+            Login
+        </button>
+
+        <button onclick="signupUser()">
+            Signup
+        </button>
+
+    </div>
+
+</div>
+
+
+
+    <!-- MAIN APP -->
+
+   <div id="mainApp" style="display:none;">
+
+   <div id="postSection">
+
+    <div class="post-box">
+
+        <h2>Write A Message 💌</h2>
+
+        <textarea
+            id="messageInput"
+            placeholder="write something anonymous..."
+        ></textarea>
+
+        <button onclick="sendMessage()">
+            Send Thought
+        </button>
+
+    </div>
+
+</div>
+
+    <div id="messages"></div>
+
+</div>
 
     <script src="script.js"></script>
 
