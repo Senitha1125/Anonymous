@@ -1,3 +1,30 @@
+async function signupUser() {
+
+    const username = document.getElementById("username").value;
+
+    const password = document.getElementById("password").value;
+
+    const response = await fetch("/signup", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            username,
+            password
+        })
+
+    });
+
+    const data = await response.text();
+
+    alert(data);
+
+}
+
 async function loginUser() {
 
     const username = document.getElementById("username").value;
