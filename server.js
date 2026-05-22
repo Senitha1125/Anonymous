@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
     res.send("Anonymous Backend Running");
 });
 
-app.post("/message", async (req, res) => {
+app.post("/message",authMiddleware, async (req, res) => {
 
     try {
 
@@ -71,9 +71,15 @@ app.get("/messages", authMiddleware, async (req, res) =>  {
 
 });
 
-app.delete("/message/:id", async (req, res) => {
+app.delete("/message/:id", authMiddleware, async (req, res) => {
 
     try {
+
+        if(req.user.username !== process.env.ADMIN_USERNAME) {
+
+            return res.status(403).send("Access denied");
+
+        }
 
         await Message.findByIdAndDelete(req.params.id);
 
@@ -87,7 +93,6 @@ app.delete("/message/:id", async (req, res) => {
     }
 
 });
-
 app.post("/signup", async (req, res) => {
 
     try {

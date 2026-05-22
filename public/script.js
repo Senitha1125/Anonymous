@@ -58,14 +58,19 @@ async function loginUser() {
 async function sendMessage() {
 
     const message = document.getElementById("messageInput").value;
+    const token = localStorage.getItem("token");
 
     const response = await fetch("/message", {
 
         method: "POST",
 
         headers: {
-            "Content-Type": "application/json"
-        },
+
+    "Content-Type": "application/json",
+
+    Authorization: `Bearer ${token}`
+
+},
 
         body: JSON.stringify({
             message: message
