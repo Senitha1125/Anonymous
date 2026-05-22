@@ -134,7 +134,10 @@ app.post("/login", async (req, res) => {
 
         const token = jwt.sign(
 
-            { id: user._id },
+            {
+   id: user._id,
+   username: user.username
+},
 
             process.env.JWT_SECRET,
 
@@ -142,7 +145,16 @@ app.post("/login", async (req, res) => {
 
         );
 
-        res.json({ token });
+       res.json({
+
+    token,
+
+    username: user.username,
+
+    isAdmin:
+        user.username === process.env.ADMIN_USERNAME
+
+});
 
     } catch (error) {
 
